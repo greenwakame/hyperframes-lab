@@ -10,9 +10,11 @@
     "AI-assisted"
   ],
   "featured": true,
+  "status": "complete",
   "duration": 20,
   "resolution": "1920x1080",
   "fps": 30,
   "poster": "./assets/poster.webp",
+  "poster_alt": "ゲーム風のプロフィール画面に greenwakame と Pug Reviewer が登場する映像のポスター",
   "video": "./media/greenwakame-profile-pv-v6-github.mp4"
 }

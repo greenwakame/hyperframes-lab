@@ -1,0 +1,15 @@
+<article class="case-card">
+  <a class="case-card-link" href="{{ include.case.url | relative_url }}" aria-label="View case study: {{ include.case.title | escape }}">
+    <div class="case-card-image">
+      <img src="{{ include.case.poster_url | relative_url }}" alt="{{ include.case.poster_alt | escape }}" width="{{ include.case.poster_width }}" height="{{ include.case.poster_height }}" loading="{% if include.eager %}eager{% else %}lazy{% endif %}" decoding="async">
+      <span class="image-label">{{ include.case.category | escape }}</span>
+    </div>
+    <div class="case-card-copy">
+      <div class="eyebrow">CASE STUDY <span aria-hidden="true">/</span> {{ include.case.duration }} SEC{% if include.case.date %} <span aria-hidden="true">/</span> {{ include.case.date }}{% endif %}</div>
+      <h3>{{ include.case.title | escape }}</h3>
+      <p>{{ include.case.summary | escape }}</p>
+      <ul class="tag-list" aria-label="Topics">{% for tag in include.case.tags limit: 4 %}<li>{{ tag | escape }}</li>{% endfor %}</ul>
+      <span class="card-action">View Case Study <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+</article>

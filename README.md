@@ -4,6 +4,8 @@ AI-assisted motion design case studies and practical knowledge built with HyperF
 
 HyperFrames + Codexによる動画制作の事例と、実制作から得たナレッジをまとめています。
 
+[Browse the HyperFrames Lab showcase](https://greenwakame.github.io/hyperframes-lab/) for the case studies, knowledge, and examples in a reading-focused layout.
+
 ## Featured Case Study
 
 ### greenwakame Profile PV
@@ -37,6 +39,27 @@ Start with the [Japanese knowledge index](docs/README.md), or go directly to [en
 ## Environment
 
 The documented production used Apple Silicon, macOS 26.5.2, mise 2026.7.18, Node 24.18.0, pnpm 11.28.0, HyperFrames CLI 0.8.80, FFmpeg 9.0.2, and Chrome. These are recorded versions, not universal requirements. [Details](docs/environment.md).
+
+## Pages local preview
+
+The website uses Jekyll and a small Python generator. The original `docs/`, `case-studies/`, and `examples/` files remain the source of truth. On macOS, from the repository root:
+
+```sh
+mise install
+mise exec -- bundle install
+python3 scripts/build_site.py
+mise exec -- bundle exec jekyll serve --source .build/site-src --destination .build/public --baseurl /hyperframes-lab
+```
+
+Open `http://localhost:4000/hyperframes-lab/`. For a non-serving build and local link check:
+
+```sh
+python3 scripts/build_site.py
+mise exec -- bundle exec jekyll build --source .build/site-src --destination .build/public
+python3 scripts/check_site.py
+```
+
+Generated files live only in the ignored `.build/` directory. The Pages workflow runs the same generator and checks before deployment.
 
 ## Future Experiments
 

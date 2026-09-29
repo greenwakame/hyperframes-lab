@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<div class="shell article-shell">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true">/</span>
+    {% if page.parent_url %}<a href="{{ page.parent_url | relative_url }}">{{ page.parent_title | escape }}</a><span aria-hidden="true">/</span>{% endif %}
+    <span aria-current="page">{{ page.title | escape }}</span>
+  </nav>
+  <header class="article-header">
+    <p class="eyebrow">/ FIELD NOTES</p>
+    <h1>{{ page.title | escape }}</h1>
+    <p>{{ page.description | escape }}</p>
+    {% if page.source_path %}<a class="inline-link" href="https://github.com/greenwakame/hyperframes-lab/blob/main/{{ page.source_path }}">View source on GitHub <span aria-hidden="true">↗</span></a>{% endif %}
+  </header>
+  <article class="prose" lang="{{ page.lang | default: 'ja' }}">{{ content }}</article>
+</div>

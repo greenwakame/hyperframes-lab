@@ -1,0 +1,11 @@
+url: https://greenwakame.github.io
+baseurl: /hyperframes-lab
+title: HyperFrames Lab
+description: Motion experiments, case studies, and practical production notes.
+markdown: kramdown
+collections:
+  cases:
+    output: true
+    permalink: /cases/:title/
+exclude:
+  - README.md

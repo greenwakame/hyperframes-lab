@@ -13,3 +13,7 @@ ffmpeg2pass*
 *.tmp
 *.temp
 renders/
+.build/
+_site/
+.bundle/
+vendor/bundle/

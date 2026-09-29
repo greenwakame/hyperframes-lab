@@ -1,0 +1,42 @@
+---
+layout: default
+title: Home
+description: HyperFrames Lab — motion experiments, case studies, and practical production notes.
+permalink: /
+---
+{% assign featured = site.data.cases | where: 'featured', true | first %}
+{% unless featured %}{% assign featured = site.data.cases | first %}{% endunless %}
+<section class="home-hero shell">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="signal" aria-hidden="true"></span> MOTION DESIGN / HUMAN REVIEW / PRACTICAL NOTES</p>
+    <h1>HYPER<span>FRAMES</span><em>LAB<span class="period">.</span></em></h1>
+    <p class="hero-lede">Motion experiments, case studies,<br>and practical production notes.</p>
+    <p class="hero-description">A working archive of motion made with HyperFrames and coding agents—what shipped, what failed, and what held up under human review.</p>
+    <div class="hero-actions"><a class="button button-primary" href="{{ '/cases/' | relative_url }}">Explore cases <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="{{ '/knowledge/' | relative_url }}">Read the notes <span aria-hidden="true">→</span></a></div>
+  </div>
+  <div class="hero-aside" aria-label="Lab approach"><span class="corner-label">LAB / 001</span><div class="orbit-mark" aria-hidden="true"><span>H</span><span>F</span></div><p>DESIGN <span>→</span> BUILD <span>→</span> CHECK <span>→</span> WATCH <span>→</span> REFINE</p><strong>Check passed ≠ animation looks good.</strong></div>
+</section>
+
+{% if featured %}
+<section class="home-section shell" aria-labelledby="featured-heading">
+  <div class="section-heading"><div><p class="eyebrow">/ FEATURED CASE</p><h2 id="featured-heading">The work, and the thinking behind it.</h2></div><a class="inline-link" href="{{ '/cases/' | relative_url }}">All cases ↗</a></div>
+  {% include case-card.html case=featured eager=true %}
+  <div class="spec-strip"><span>{{ featured.duration }} SEC</span><span>{{ featured.resolution | replace: 'x', ' × ' }}</span><span>{{ featured.fps }} FPS</span><span>{{ featured.status | upcase | escape }}</span></div>
+</section>
+{% endif %}
+
+<section class="home-section shell split-section" aria-label="Knowledge and examples">
+  <div class="knowledge-panel">
+    <p class="eyebrow">/ KNOWLEDGE</p><h2>Useful after the render.</h2>
+    <p>Specific decisions and reproducible steps from real production, written down for the next project.</p>
+    <ul class="link-list"><li><a href="{{ '/knowledge/animation-design/' | relative_url }}">Animation Design <span aria-hidden="true">↗</span></a></li><li><a href="{{ '/knowledge/workflow/' | relative_url }}">Workflow <span aria-hidden="true">↗</span></a></li><li><a href="{{ '/knowledge/troubleshooting/' | relative_url }}">Troubleshooting <span aria-hidden="true">↗</span></a></li></ul>
+    <a class="inline-link" href="{{ '/knowledge/' | relative_url }}">Explore all knowledge ↗</a>
+  </div>
+  <div class="example-panel">
+    <p class="eyebrow">/ REPRODUCIBLE EXAMPLE</p><div class="example-art" aria-hidden="true"><span class="example-actor"></span><span class="example-arrow">120 ms →</span><span class="example-ui">UI REACTS</span></div>
+    <h2>Stable Sprite UI Reaction</h2><p>A small, inspectable example of a stable character, a readable gesture, and a deliberately delayed response.</p>
+    <a class="inline-link" href="{{ '/examples/stable-sprite-ui-reaction/' | relative_url }}">Explore the example ↗</a>
+  </div>
+</section>
+
+<section class="about-section" id="about" aria-labelledby="about-title"><div class="shell about-inner"><p class="eyebrow">/ ABOUT THE LAB</p><h2 id="about-title">Make it move.<br><span>Then watch it closely.</span></h2><p>HyperFrames Lab documents finished motion work, the experiments behind it, the mistakes that changed the design, and small examples that make each lesson repeatable. HyperFrames and coding agents help build; human visual QA decides whether the result actually works.</p><a class="inline-link" href="https://github.com/greenwakame/hyperframes-lab">Explore the repository ↗</a></div></section>

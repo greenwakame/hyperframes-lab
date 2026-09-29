@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<div class="shell article-shell">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true">/</span><a href="{{ '/examples/' | relative_url }}">Examples</a><span aria-hidden="true">/</span><span aria-current="page">{{ page.title | escape }}</span></nav>
+  <header class="article-header"><p class="eyebrow">/ REPRODUCIBLE EXAMPLE</p><h1>{{ page.title | escape }}</h1><p>{{ page.description | escape }}</p><a class="inline-link" href="https://github.com/greenwakame/hyperframes-lab/tree/main/examples/{{ page.example_slug }}">View source on GitHub ↗</a></header>
+  {% if page.demo_url %}
+  <section class="demo-section" aria-labelledby="demo-title">
+    <h2 id="demo-title">Watch the principle</h2>
+    <p>One stable character moves through anticipation, action and settle. The status panel responds 120 ms after the character leans.</p>
+    <div class="demo-viewport"><iframe id="demo-frame" src="{{ page.demo_url | relative_url }}" title="Stable sprite and delayed UI reaction animation" width="1280" height="720" loading="lazy"></iframe></div>
+    <div class="demo-controls" aria-label="Demo playback controls"><button type="button" data-demo-action="play">Play</button><button type="button" data-demo-action="pause">Pause</button><button type="button" data-demo-action="replay">Replay</button><a href="{{ page.demo_url | relative_url }}">Open full-size demo ↗</a></div>
+  </section>
+  <script src="{{ '/assets/js/demo-controls.js' | relative_url }}" defer></script>
+  {% endif %}
+  <article class="prose" lang="{{ page.lang | default: 'ja' }}">{{ content }}</article>
+</div>

@@ -1,0 +1,10 @@
+---
+layout: default
+title: Knowledge
+description: Practical production notes from HyperFrames projects.
+permalink: /knowledge/
+---
+<div class="shell listing-page">
+  <header class="listing-header"><p class="eyebrow">/ FIELD GUIDE</p><h1>KNOW<span>LEDGE.</span></h1><p>Environment, workflow, visual judgment, validation and delivery—documented from actual production.</p></header>
+  <ol class="knowledge-list">{% for note in site.data.knowledge %}<li><a href="{{ note.url | relative_url }}"><span class="knowledge-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span><span><strong>{{ note.title | escape }}</strong><small lang="ja">{{ note.description | escape }}</small></span><span class="knowledge-arrow" aria-hidden="true">↗</span></a></li>{% endfor %}</ol>
+</div>
