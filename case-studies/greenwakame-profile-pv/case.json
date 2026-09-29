@@ -1,0 +1,18 @@
+{
+  "slug": "greenwakame-profile-pv",
+  "title": "greenwakame Profile PV",
+  "summary": "A 20-second game-inspired GitHub profile video and a case study in stable-sprite animation.",
+  "category": "Motion Design",
+  "tags": [
+    "HyperFrames",
+    "Codex",
+    "FFmpeg",
+    "AI-assisted"
+  ],
+  "featured": true,
+  "duration": 20,
+  "resolution": "1920x1080",
+  "fps": 30,
+  "poster": "./assets/poster.webp",
+  "video": "./media/greenwakame-profile-pv-v6-github.mp4"
+}

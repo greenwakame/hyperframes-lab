@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+.pnpm-store/
+.hyperframes/
+.thumbnails/
+preview-frames/
+snapshots/
+*.log
+*.mbtree
+ffmpeg2pass*
+.env
+.env.*
+*.tmp
+*.temp
+renders/

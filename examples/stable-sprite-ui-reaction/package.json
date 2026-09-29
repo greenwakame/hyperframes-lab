@@ -1,0 +1,14 @@
+{
+  "name": "stable-sprite-ui-reaction",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@11.28.0",
+  "scripts": {
+    "check": "hyperframes check",
+    "preview": "hyperframes preview"
+  },
+  "devDependencies": {
+    "hyperframes": "0.8.80"
+  }
+}

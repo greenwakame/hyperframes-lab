@@ -1,0 +1,15 @@
+Documentation license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+The repository-authored documentation and case-study prose in README.md,
+docs/, case-studies/**/*.md, case-studies/**/case.json, examples/**/*.md,
+and RIGHTS-AND-CREDITS.md
+is licensed under Creative Commons Attribution 4.0 International.
+
+License: https://creativecommons.org/licenses/by/4.0/
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+This is a license notice linking to the official license, not a replacement or
+modification of its terms. It covers the repository-authored text in the files
+listed above, including text around embedded media. It does not cover the
+embedded images or video, example source/configuration files, or third-party
+content. See RIGHTS-AND-CREDITS.md for the scope of each category.
