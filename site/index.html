@@ -6,37 +6,55 @@ permalink: /
 ---
 {% assign featured = site.data.cases | where: 'featured', true | first %}
 {% unless featured %}{% assign featured = site.data.cases | first %}{% endunless %}
+{% assign video_cases = site.data.cases | where: 'has_video', true %}
+{% assign featured_video = video_cases | where: 'featured_video', true | first %}
+{% unless featured_video %}{% assign featured_video = video_cases | first %}{% endunless %}
 <section class="home-hero shell">
   <div class="hero-copy">
     <p class="eyebrow"><span class="signal" aria-hidden="true"></span> MOTION DESIGN / HUMAN REVIEW / PRACTICAL NOTES</p>
     <h1>HYPER<span>FRAMES</span><em>LAB<span class="period">.</span></em></h1>
     <p class="hero-lede">Motion experiments, case studies,<br>and practical production notes.</p>
+    <p class="hero-ja" lang="ja">完成映像から制作過程、実践ノートまで。動きを作り、人の目で確かめた記録です。</p>
     <p class="hero-description">A working archive of motion made with HyperFrames and coding agents—what shipped, what failed, and what held up under human review.</p>
-    <div class="hero-actions"><a class="button button-primary" href="{{ '/cases/' | relative_url }}">Explore cases <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="{{ '/knowledge/' | relative_url }}">Read the notes <span aria-hidden="true">→</span></a></div>
+    <div class="hero-actions">
+      {% if featured_video %}<a class="button button-primary" href="#featured-film"><span>Watch the film<small lang="ja">完成映像を見る</small></span><span aria-hidden="true">↓</span></a>{% endif %}
+      <a class="button button-quiet" href="{{ '/cases/' | relative_url }}"><span>Explore cases<small lang="ja">制作事例を読む</small></span><span aria-hidden="true">↗</span></a>
+    </div>
   </div>
+  {% if featured_video %}
+  <aside class="hero-film" id="featured-film" aria-label="注目の完成映像">
+    <div class="hero-film-head"><span class="corner-label">FEATURED FILM <small lang="ja">/ 注目の映像</small></span><span>{{ featured_video.duration }} SEC</span></div>
+    <video controls playsinline preload="none" poster="{{ featured_video.poster_url | relative_url }}" width="1920" height="1080" aria-label="{{ featured_video.title | escape }} の完成映像">
+      <source src="{{ featured_video.video_url | relative_url }}" type="video/mp4">
+      Your browser does not support video playback.
+    </video>
+    <div class="hero-film-foot"><strong>{{ featured_video.title | escape }}</strong><a href="{{ featured_video.url | relative_url }}">Read the case <span lang="ja">/ 制作過程を見る</span> <span aria-hidden="true">↗</span></a></div>
+  </aside>
+  {% else %}
   <div class="hero-aside" aria-label="Lab approach"><span class="corner-label">LAB / 001</span><div class="orbit-mark" aria-hidden="true"><span>H</span><span>F</span></div><p>DESIGN <span>→</span> BUILD <span>→</span> CHECK <span>→</span> WATCH <span>→</span> REFINE</p><strong>Check passed ≠ animation looks good.</strong></div>
+  {% endif %}
 </section>
 
 {% if featured %}
 <section class="home-section shell" aria-labelledby="featured-heading">
-  <div class="section-heading"><div><p class="eyebrow">/ FEATURED CASE</p><h2 id="featured-heading">The work, and the thinking behind it.</h2></div><a class="inline-link" href="{{ '/cases/' | relative_url }}">All cases ↗</a></div>
+  <div class="section-heading"><div><p class="eyebrow">/ FEATURED CASE <span lang="ja">/ 注目の事例</span></p><h2 id="featured-heading">The work, and the thinking behind it.</h2></div><a class="inline-link" href="{{ '/cases/' | relative_url }}">All cases <span lang="ja">/ 事例一覧</span> ↗</a></div>
   {% include case-card.html case=featured eager=true %}
-  <div class="spec-strip"><span>{{ featured.duration }} SEC</span><span>{{ featured.resolution | replace: 'x', ' × ' }}</span><span>{{ featured.fps }} FPS</span><span>{{ featured.status | upcase | escape }}</span></div>
+  <div class="spec-strip">{% if featured.has_video %}<span>{{ featured.duration }} SEC</span><span>{{ featured.resolution | replace: 'x', ' × ' }}</span><span>{{ featured.fps }} FPS</span>{% endif %}<span>{{ featured.status | upcase | escape }}</span></div>
 </section>
 {% endif %}
 
 <section class="home-section shell split-section" aria-label="Knowledge and examples">
   <div class="knowledge-panel">
-    <p class="eyebrow">/ KNOWLEDGE</p><h2>Useful after the render.</h2>
+    <p class="eyebrow">/ KNOWLEDGE <span lang="ja">/ 制作ノート</span></p><h2>Useful after the render.</h2>
     <p>Specific decisions and reproducible steps from real production, written down for the next project.</p>
     <ul class="link-list"><li><a href="{{ '/knowledge/animation-design/' | relative_url }}">Animation Design <span aria-hidden="true">↗</span></a></li><li><a href="{{ '/knowledge/workflow/' | relative_url }}">Workflow <span aria-hidden="true">↗</span></a></li><li><a href="{{ '/knowledge/troubleshooting/' | relative_url }}">Troubleshooting <span aria-hidden="true">↗</span></a></li></ul>
-    <a class="inline-link" href="{{ '/knowledge/' | relative_url }}">Explore all knowledge ↗</a>
+    <a class="inline-link" href="{{ '/knowledge/' | relative_url }}">Explore knowledge <span lang="ja">/ 制作ノートを読む</span> ↗</a>
   </div>
   <div class="example-panel">
-    <p class="eyebrow">/ REPRODUCIBLE EXAMPLE</p><div class="example-art" aria-hidden="true"><span class="example-actor"></span><span class="example-arrow">120 ms →</span><span class="example-ui">UI REACTS</span></div>
+    <p class="eyebrow">/ REPRODUCIBLE EXAMPLE <span lang="ja">/ 動く実例</span></p><div class="example-art" aria-hidden="true"><span class="example-actor"></span><span class="example-arrow">120 ms →</span><span class="example-ui">UI REACTS</span></div>
     <h2>Stable Sprite UI Reaction</h2><p>A small, inspectable example of a stable character, a readable gesture, and a deliberately delayed response.</p>
     <a class="inline-link" href="{{ '/examples/stable-sprite-ui-reaction/' | relative_url }}">Explore the example ↗</a>
   </div>
 </section>
 
-<section class="about-section" id="about" aria-labelledby="about-title"><div class="shell about-inner"><p class="eyebrow">/ ABOUT THE LAB</p><h2 id="about-title">Make it move.<br><span>Then watch it closely.</span></h2><p>HyperFrames Lab documents finished motion work, the experiments behind it, the mistakes that changed the design, and small examples that make each lesson repeatable. HyperFrames and coding agents help build; human visual QA decides whether the result actually works.</p><a class="inline-link" href="https://github.com/greenwakame/hyperframes-lab">Explore the repository ↗</a></div></section>
+<section class="about-section" id="about" aria-labelledby="about-title"><div class="shell about-inner"><p class="eyebrow">/ ABOUT THE LAB <span lang="ja">/ このサイトについて</span></p><h2 id="about-title">Make it move.<br><span>Then watch it closely.</span></h2><p lang="ja">HyperFrames Lab は、完成映像だけでなく、制作中の判断、失敗、検証、再現できる実例をまとめた専門サイトです。ほかの成果物は greenwakame の Showcase に掲載しています。</p><p>HyperFrames and coding agents help build; human visual QA decides whether the result actually works.</p><div class="about-links"><a class="inline-link" href="https://greenwakame.github.io/greenwakame/">Portfolio <span lang="ja">/ 成果物一覧へ</span> ↗</a><a class="inline-link" href="https://github.com/greenwakame/hyperframes-lab">GitHub <span lang="ja">/ ソースを見る</span> ↗</a></div></div></section>

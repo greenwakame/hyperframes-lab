@@ -22,12 +22,12 @@
     <div class="shell header-inner">
       <a class="brand" href="{{ '/' | relative_url }}" aria-label="HyperFrames Lab home"><span class="brand-symbol" aria-hidden="true">H<span>F</span></span><span>HYPERFRAMES <b>LAB</b></span></a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="{{ '/cases/' | relative_url }}"{% if page.url contains '/cases/' %} aria-current="page"{% endif %}>Cases</a>
-        <a href="{{ '/knowledge/' | relative_url }}"{% if page.url contains '/knowledge/' %} aria-current="page"{% endif %}>Knowledge</a>
-        <a href="{{ '/examples/' | relative_url }}"{% if page.url contains '/examples/' %} aria-current="page"{% endif %}>Examples</a>
-        <a href="{{ '/#about' | relative_url }}">About</a>
+        <a href="{{ '/cases/' | relative_url }}"{% if page.url contains '/cases/' %} aria-current="page"{% endif %}>Cases<small lang="ja">制作事例</small></a>
+        <a href="{{ '/knowledge/' | relative_url }}"{% if page.url contains '/knowledge/' %} aria-current="page"{% endif %}>Knowledge<small lang="ja">制作ノート</small></a>
+        <a href="{{ '/examples/' | relative_url }}"{% if page.url contains '/examples/' %} aria-current="page"{% endif %}>Examples<small lang="ja">動く実例</small></a>
+        <a href="{{ '/#about' | relative_url }}">About<small lang="ja">このサイト</small></a>
       </nav>
-      <a class="portfolio-link" href="https://greenwakame.github.io/greenwakame/">← greenwakame Portfolio</a>
+      <a class="portfolio-link" href="https://greenwakame.github.io/greenwakame/">← Portfolio <small lang="ja">成果物一覧</small></a>
     </div>
   </header>
   <main id="main">{{ content }}</main>
