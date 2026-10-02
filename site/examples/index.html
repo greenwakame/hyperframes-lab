@@ -5,6 +5,6 @@ description: Small reproducible examples of HyperFrames motion principles.
 permalink: /examples/
 ---
 <div class="shell listing-page">
-  <header class="listing-header"><p class="eyebrow">/ SMALL ENOUGH TO INSPECT</p><h1>EXA<span>MPLES.</span></h1><p>Focused, reproducible demonstrations that isolate one motion principle at a time.</p></header>
-  <div class="example-grid">{% for example in site.data.examples %}<article class="example-item"><span class="eyebrow">EXAMPLE / {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span><div class="example-art" aria-hidden="true"><span class="example-actor"></span><span class="example-arrow">120 ms →</span><span class="example-ui">UI REACTS</span></div><h2>{{ example.title | escape }}</h2><p lang="ja">{{ example.description | escape }}</p><a class="inline-link" href="{{ example.url | relative_url }}">Explore concept &amp; demo ↗</a></article>{% endfor %}</div>
+  <header class="listing-header"><p class="eyebrow">/ SMALL ENOUGH TO INSPECT <span lang="ja">/ 動く実例</span></p><h1>EXA<span>MPLES.</span></h1><p lang="ja">動きの原則を一つずつ切り出した、操作・確認できる小さな実例です。</p></header>
+  <div class="example-grid">{% for example in site.data.examples %}<article class="example-item"><span class="eyebrow">EXAMPLE / {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span><div class="example-art" aria-hidden="true"><span class="example-actor"></span><span class="example-arrow">120 ms →</span><span class="example-ui">UI REACTS</span></div><h2>{{ example.title | escape }}</h2><p lang="ja">{{ example.description | escape }}</p><a class="inline-link" href="{{ example.url | relative_url }}">Explore demo <span lang="ja">/ 実例を見る</span> ↗</a></article>{% endfor %}</div>
 </div>

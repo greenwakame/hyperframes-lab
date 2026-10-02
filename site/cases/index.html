@@ -5,7 +5,7 @@ description: Finished HyperFrames work, production choices, failures and lessons
 permalink: /cases/
 ---
 <div class="shell listing-page">
-  <header class="listing-header"><p class="eyebrow">/ THE CASE FILES — {{ site.data.cases.size }} TOTAL</p><h1>CASE <span>STUDIES.</span></h1><p>Finished work with the decisions, failed iterations, and review that shaped it.</p></header>
+  <header class="listing-header"><p class="eyebrow">/ THE CASE FILES — {{ site.data.cases.size }} TOTAL</p><h1>CASE <span>STUDIES.</span></h1><p lang="ja">完成映像から見ることも、制作過程から読むこともできます。各事例に判断・失敗・検証の記録を残しています。</p></header>
   <div class="case-grid{% if site.data.cases.size == 1 %} single-case{% endif %}">{% for case in site.data.cases %}{% include case-card.html case=case eager=forloop.first %}{% endfor %}</div>
   <p class="listing-outro">Each case begins with a finished work and keeps the useful process visible. <a class="inline-link" href="{{ '/knowledge/' | relative_url }}">Browse the production notes ↗</a></p>
 </div>

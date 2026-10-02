@@ -63,7 +63,7 @@ Generated files live only in the ignored `.build/` directory. The Pages workflow
 
 ## Future Experiments
 
-Each future work gets its own `case-studies/<slug>/` folder, delivery media, poster, and optional focused example. [See the case index](case-studies/README.md).
+Each future work gets its own `case-studies/<slug>/` folder, poster, and optional delivery video and focused example. Add a Japanese `summary_ja` to its `case.json`. Use `featured_video: true` on at most one video case to choose the Home player; otherwise the newest video is shown. [See the case index](case-studies/README.md).
 
 ## Licensing / Rights
 

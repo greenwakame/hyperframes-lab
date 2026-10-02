@@ -16,8 +16,8 @@ CASE_ROOT = ROOT / "case-studies"
 DOC_ROOT = ROOT / "docs"
 EXAMPLE_ROOT = ROOT / "examples"
 REQUIRED = {
-    "slug", "title", "summary", "category", "tags", "featured", "duration",
-    "resolution", "fps", "poster", "video", "poster_alt", "status",
+    "slug", "title", "summary", "summary_ja", "category", "tags", "featured",
+    "poster", "poster_alt", "status",
 }
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MARKDOWN_LINK = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)|!\[([^\]]*)\]\(([^)]+)\)")
@@ -95,36 +95,51 @@ def validate_cases():
         if slug in seen:
             fail(f"duplicate slug: {slug}")
         seen.add(slug)
-        for field in ("title", "summary", "category", "poster_alt", "status", "resolution"):
+        for field in ("title", "summary", "summary_ja", "category", "poster_alt", "status"):
             if not isinstance(case[field], str) or not case[field].strip():
                 fail(f"{slug}: {field} must be a nonempty string")
         if not isinstance(case["tags"], list) or not all(isinstance(tag, str) and tag for tag in case["tags"]):
             fail(f"{slug}: tags must be a list of strings")
         if type(case["featured"]) is not bool:
             fail(f"{slug}: featured must be boolean")
-        if type(case["duration"]) not in (int, float) or case["duration"] <= 0:
-            fail(f"{slug}: duration must be positive number")
-        if type(case["fps"]) not in (int, float) or case["fps"] <= 0:
-            fail(f"{slug}: fps must be positive number")
+        if type(case.get("featured_video", False)) is not bool:
+            fail(f"{slug}: featured_video must be boolean")
+        if type(case.get("audio_free", False)) is not bool:
+            fail(f"{slug}: audio_free must be boolean")
         if "date" in case:
             try:
                 dt.date.fromisoformat(case["date"])
             except (TypeError, ValueError):
                 fail(f"{slug}: date must be YYYY-MM-DD")
-        for field in ("poster", "video"):
-            checked_asset(case_dir, case[field], field)
+        checked_asset(case_dir, case["poster"], "poster")
+        has_video = bool(case.get("video"))
+        if "video" in case and not has_video:
+            fail(f"{slug}: video must be a ./ path or omitted")
+        if has_video:
+            for field in ("duration", "fps"):
+                if type(case.get(field)) not in (int, float) or case[field] <= 0:
+                    fail(f"{slug}: {field} must be a positive number when video is present")
+            if not isinstance(case.get("resolution"), str) or not case["resolution"].strip():
+                fail(f"{slug}: resolution is required when video is present")
+            checked_asset(case_dir, case["video"], "video")
+        if case.get("featured_video", False) and not has_video:
+            fail(f"{slug}: featured_video requires video")
+        case["has_video"] = has_video
         case["poster_width"], case["poster_height"] = webp_size(checked_asset(case_dir, case["poster"], "poster"))
         if not (case_dir / "README.md").is_file():
             fail(f"{slug}: missing README.md")
         case["url"] = f"/cases/{slug}/"
         case["poster_url"] = f"/assets/cases/{slug}/{case['poster'][2:]}"
-        case["video_url"] = f"/assets/cases/{slug}/{case['video'][2:]}"
+        if has_video:
+            case["video_url"] = f"/assets/cases/{slug}/{case['video'][2:]}"
         case["source_url"] = f"{GITHUB}/case-studies/{slug}/README.md"
         cases.append(case)
     if not cases:
         fail("no cases found")
     cases.sort(key=lambda case: case["slug"])
     cases.sort(key=lambda case: case.get("date", ""), reverse=True)
+    if sum(case.get("featured_video", False) for case in cases) > 1:
+        fail("only one case can have featured_video: true")
     return cases
 
 
@@ -213,9 +228,10 @@ def build_cases(cases):
         body = (case_dir / "README.md").read_text(encoding="utf-8")
         body = re.sub(r"\A# [^\n]+\n", "", body, count=1)
         # The case layout owns the hero poster, player and direct MP4 link.
-        body = "\n".join(line for line in body.splitlines()
-                         if not (case["poster"][2:] in line and case["video"][2:] in line)
-                         and not (case["video"][2:] in line and line.lstrip().startswith("[")))
+        if case["has_video"]:
+            body = "\n".join(line for line in body.splitlines()
+                             if not (case["poster"][2:] in line and case["video"][2:] in line)
+                             and not (case["video"][2:] in line and line.lstrip().startswith("[")))
         body = rewrite_links(body.lstrip(), case_dir / "README.md")
         fields = dict(case, layout="case", permalink=case["url"], description=case["summary"],
                       og_image=case["poster_url"], source_path=f"case-studies/{slug}/README.md")
@@ -239,10 +255,11 @@ def build_cases(cases):
                 destination = OUTPUT / "assets" / "cases" / slug / asset.relative_to(case_dir)
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(asset, destination)
-        video = checked_asset(case_dir, case["video"], "video")
-        destination = OUTPUT / case["video_url"].lstrip("/")
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(video, destination)
+        if case["has_video"]:
+            video = checked_asset(case_dir, case["video"], "video")
+            destination = OUTPUT / case["video_url"].lstrip("/")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(video, destination)
 
 
 def build_knowledge():

@@ -7,28 +7,32 @@ layout: default
     <p class="eyebrow"><span class="signal" aria-hidden="true"></span> CASE STUDY / {{ page.category | upcase | escape }}</p>
     <h1>{{ page.title | escape }}</h1>
     <p class="case-lede">{{ page.summary | escape }}</p>
+    <p class="case-lede-ja" lang="ja">{{ page.summary_ja | escape }}</p>
     <ul class="case-facts" aria-label="Project specifications">
-      <li><b>{{ page.duration }} sec</b><span>RUNTIME</span></li>
+      {% if page.has_video %}<li><b>{{ page.duration }} sec</b><span>RUNTIME</span></li>
       <li><b>{{ page.resolution | replace: 'x', ' × ' }}</b><span>FRAME</span></li>
-      <li><b>{{ page.fps }} fps</b><span>RATE</span></li>
+      <li><b>{{ page.fps }} fps</b><span>RATE</span></li>{% endif %}
       <li><b>{{ page.status | capitalize | escape }}</b><span>STATUS</span></li>
       {% if page.published_date %}<li><b>{{ page.published_date }}</b><span>PUBLISHED</span></li>{% endif %}
     </ul>
   </header>
-  <figure class="case-poster"><img src="{{ page.poster_url | relative_url }}" alt="{{ page.poster_alt | escape }}" width="{{ page.poster_width }}" height="{{ page.poster_height }}" decoding="async"><figcaption>{{ page.title | escape }} / final poster</figcaption></figure>
+  {% if page.has_video %}
   <section class="film-section" aria-labelledby="film-heading">
-    <div class="section-heading"><p class="eyebrow">/ WATCH THE WORK</p><h2 id="film-heading">The final cut</h2></div>
-    <video controls muted playsinline preload="metadata" poster="{{ page.poster_url | relative_url }}" width="1920" height="1080" aria-label="{{ page.title | escape }} video">
+    <div class="section-heading"><div><p class="eyebrow">/ WATCH THE WORK <span lang="ja">/ 完成映像</span></p><h2 id="film-heading">The final cut</h2><p class="film-subtitle" lang="ja">{{ page.duration }}秒の完成映像{% if page.audio_free %}・音声なし{% endif %}。再生ボタンからご覧ください。</p></div></div>
+    <video controls playsinline preload="none" poster="{{ page.poster_url | relative_url }}" width="1920" height="1080" aria-label="{{ page.title | escape }} の完成映像">
       <source src="{{ page.video_url | relative_url }}" type="video/mp4">
       Your browser does not support this video.
     </video>
-    <p class="film-note">Audio-free delivery · <a class="inline-link" href="{{ page.video_url | relative_url }}">Direct MP4 <span aria-hidden="true">↗</span></a></p>
+    <p class="film-note"><a class="inline-link" href="{{ page.video_url | relative_url }}">Direct MP4 <span lang="ja">/ 動画ファイルを開く</span> <span aria-hidden="true">↗</span></a></p>
   </section>
+  {% else %}
+  <figure class="case-poster"><img src="{{ page.poster_url | relative_url }}" alt="{{ page.poster_alt | escape }}" width="{{ page.poster_width }}" height="{{ page.poster_height }}" decoding="async"><figcaption>{{ page.title | escape }} / case preview</figcaption></figure>
+  {% endif %}
   <div class="case-body-grid">
     <article class="prose case-prose" lang="ja">{{ content }}</article>
     <aside class="case-aside" aria-label="Case resources">
       <div><p class="eyebrow">/ TOOLS &amp; THEMES</p><ul class="tag-list">{% for tag in page.tags %}<li>{{ tag | escape }}</li>{% endfor %}</ul></div>
-      <div><p class="eyebrow">/ DEEPER READING</p>{% if page.has_design %}<a href="{{ page.url | append: 'design/' | relative_url }}">Design and motion ↗</a>{% endif %}{% if page.has_iterations %}<a href="{{ page.url | append: 'iterations/' | relative_url }}">The iteration story ↗</a>{% endif %}<a href="{{ '/knowledge/animation-design/' | relative_url }}">Animation design ↗</a><a href="{{ '/knowledge/workflow/' | relative_url }}">Production workflow ↗</a><a href="{{ '/knowledge/validation-and-render/' | relative_url }}">Validation ↗</a></div>
+      <div><p class="eyebrow">/ DEEPER READING <span lang="ja">/ 制作を深掘り</span></p>{% if page.has_design %}<a href="{{ page.url | append: 'design/' | relative_url }}">Design <span lang="ja">/ 動きの設計</span> ↗</a>{% endif %}{% if page.has_iterations %}<a href="{{ page.url | append: 'iterations/' | relative_url }}">Iterations <span lang="ja">/ 改善の記録</span> ↗</a>{% endif %}<a href="{{ '/knowledge/animation-design/' | relative_url }}">Animation design <span lang="ja">/ 原則</span> ↗</a><a href="{{ '/knowledge/workflow/' | relative_url }}">Workflow <span lang="ja">/ 制作手順</span> ↗</a><a href="{{ '/knowledge/validation-and-render/' | relative_url }}">Validation <span lang="ja">/ 検証</span> ↗</a></div>
       <div><p class="eyebrow">/ SOURCE &amp; RIGHTS</p><a href="{{ page.source_url }}">View on GitHub ↗</a><a href="{{ '/rights/' | relative_url }}">Rights / Credits ↗</a></div>
     </aside>
   </div>
